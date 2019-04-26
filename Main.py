@@ -28,23 +28,16 @@ LS = cv2.getTrackbarPos('LS','LowerHSV')
 LV = cv2.getTrackbarPos('LV','LowerHSV')
 
 
-# Insert image
-img = cv2.imread('Line4.jpg', 1)
-# scale to 15%
-scale_percent = 15
-width = int(img.shape[1] * scale_percent / 100)
-height = int(img.shape[0] * scale_percent / 100)
-dim = (width, height)
-small = cv2.resize(img, dim)
-
-
-blur = cv2.bilateralFilter(small,9,75,75)
-cv2.imshow('blur', blur)
-# convert image to hsv
-hsv = cv2.cvtColor(blur, cv2.COLOR_BGR2HSV)
-
+# Insert video
+cap = cv2.VideoCapture(0)
 
 while True:
+    # get frame
+    ret, frame = cap.read()
+    cv2.imshow('origin', frame)
+    
+    # convert image to hsvhasattr
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     # adjust trackbar
     UH = cv2.getTrackbarPos('UH','UpperHSV')
     US = cv2.getTrackbarPos('US','UpperHSV')
@@ -59,28 +52,9 @@ while True:
 
     # convert to binary image
     mask = cv2.inRange(hsv, lower_HSV, upper_HSV)
-
-
-    lines = cv2.HoughLines(mask,1,np.pi/150,200)
-    
-    for rho,theta in lines[0]:
-        a = np.cos(theta)
-        b = np.sin(theta)
-        x0 = a*rho
-        y0 = b*rho
-        x1 = int(x0 + 1000*(-b))
-        y1 = int(y0 + 1000*(a))
-        x2 = int(x0 - 1000*(-b))
-        y2 = int(y0 - 1000*(a))
-
-        cv2.line(small,(x1,y1),(x2,y2),(0,0,255),2)
-
-    cv2.imwrite('houghlines3.jpg',small)
-
-
     
     # show image
-    cv2.imshow('hsv', small)
+    cv2.imshow('hsv', mask)
 
     # if "ESC" is pressed then exit
     key = cv2.waitKey(10) & 0xff
@@ -88,4 +62,5 @@ while True:
         break;
     
 cv2.destroyAllWindows()
+
 

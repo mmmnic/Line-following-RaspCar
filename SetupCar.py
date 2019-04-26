@@ -113,4 +113,3 @@ def isBUT2():
     if (GPIO.input(BUT2)):
         return 0
     return 1
-
