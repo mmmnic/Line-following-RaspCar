@@ -1,5 +1,10 @@
-import numpy as np
+from picamera import PiCamera
+from picamera.array import PiRGBArray
+from SetupCar import *
 import cv2
+import numpy as np
+import time
+
 
 def nothing(x):
     pass
@@ -28,16 +33,24 @@ LS = cv2.getTrackbarPos('LS','LowerHSV')
 LV = cv2.getTrackbarPos('LV','LowerHSV')
 
 
-# Insert video
-cap = cv2.VideoCapture(0)
+# Setup camera
+camera = PiCamera()
+camera.framerate = 30
+camera.resolution = (1280, 720)
+rawCapture = PiRGBArray(camera)
 
-while True:
+time.sleep(2)
+for frame in camera.capture_continuous(rawCapture, format = "bgr", use_video_port = True):
+    
+    frame = frame.array
+    RSImg = cv2.resize(frame, (320, 300))
+    setSpeed(0, 0)
+    turnServo(0)
     # get frame
-    ret, frame = cap.read()
-    cv2.imshow('origin', frame)
+    cv2.imshow('origin', RSImg)
     
     # convert image to hsvhasattr
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    hsv = cv2.cvtColor(RSImg, cv2.COLOR_BGR2HSV)
     # adjust trackbar
     UH = cv2.getTrackbarPos('UH','UpperHSV')
     US = cv2.getTrackbarPos('US','UpperHSV')
@@ -56,6 +69,7 @@ while True:
     # show image
     cv2.imshow('hsv', mask)
 
+    rawCapture.truncate(0)
     # if "ESC" is pressed then exit
     key = cv2.waitKey(10) & 0xff
     if key == 27:
