@@ -1,15 +1,14 @@
 import RPi.GPIO as GPIO
+from time import sleep
 
-
-# Configure GPIO
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 # define para
 motorFrequency = 150
-servoFrequency = 55
-servoCenterDutyCycle = 9.3
-servoMaxDutyCycle = 11.5
+servoFrequency = 50
+servoCenterDutyCycle = 8.5
+servoMaxDutyCycle = 11
 servoMaxAngle = 45
 servoRatio = (servoMaxDutyCycle - servoCenterDutyCycle)/servoMaxAngle
 # define pin
@@ -85,21 +84,21 @@ def turnServo(degree):
     return;
 
 def turnLED1(status):
-    if (status):
+    if (status == 1):
         GPIO.output(LED1, 0)
     else:
         GPIO.output(LED1, 1)
     return;
 
 def turnLED2(status):
-    if (status):
+    if (status == 1):
         GPIO.output(LED2, 0)
     else:
         GPIO.output(LED2, 1)
     return;
 
 def turnBuzzer(status):
-    if (status):
+    if (status == 1):
         GPIO.output(BZ, 0)
     else:
         GPIO.output(BZ, 1)
