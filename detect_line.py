@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import math
+<<<<<<< HEAD
 
 xRatio = 0.25
 
@@ -23,11 +24,16 @@ def creatHSV():
 	cv2.setTrackbarPos('LV', 'LowerHSV', 80) 
 	return;
 	
+=======
+>>>>>>> 52ebcd40dfe2f920722fe7984e5d0fdab4fb646d
 def binary_cvt(image, lower, upper):
     hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     mask = cv2.inRange(hsv_image, lower, upper)
     return mask
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 52ebcd40dfe2f920722fe7984e5d0fdab4fb646d
 def warp_image(img):
     image_size = (img.shape[1], img.shape[0])
     x = img.shape[1]
@@ -43,10 +49,17 @@ def warp_image(img):
     ])
     
     destination_points = np.float32([
+<<<<<<< HEAD
     [xRatio * x, y],
     [xRatio * x, 0],
     [x - (xRatio * x), 0],
     [x - (xRatio * x), y]
+=======
+    [0.25 * x, y],
+    [0.25 * x, 0],
+    [x - (0.25 * x), 0],
+    [x - (0.25 * x), y]
+>>>>>>> 52ebcd40dfe2f920722fe7984e5d0fdab4fb646d
     ])
     
     perspective_transform = cv2.getPerspectiveTransform(source_points, destination_points)
