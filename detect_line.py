@@ -3,31 +3,33 @@ import numpy as np
 import math
 
 xRatio = 0.25
+def nothing(x):
+    pass
 
 def creatHSV():
-	# Create trackbar and init value
-	cv2.namedWindow('UpperHSV')
-	cv2.namedWindow('LowerHSV')
-	cv2.createTrackbar('UH', 'UpperHSV', 0, 179, nothing)
-	cv2.createTrackbar('US', 'UpperHSV', 0, 255, nothing)
-	cv2.createTrackbar('UV', 'UpperHSV', 0, 255, nothing)
-	cv2.createTrackbar('LH', 'LowerHSV', 0, 179, nothing)
-	cv2.createTrackbar('LS', 'LowerHSV', 0, 255, nothing)
-	cv2.createTrackbar('LV', 'LowerHSV', 0, 255, nothing)
-	# init value
-	cv2.setTrackbarPos('UH', 'UpperHSV', 60)
-	cv2.setTrackbarPos('US', 'UpperHSV', 255)
-	cv2.setTrackbarPos('UV', 'UpperHSV', 255)
-	cv2.setTrackbarPos('LH', 'LowerHSV', 30)
-	cv2.setTrackbarPos('LS', 'LowerHSV', 130)
-	cv2.setTrackbarPos('LV', 'LowerHSV', 80) 
-	return;
-	
+    # Create trackbar and init value
+    cv2.namedWindow('UpperHSV')
+    cv2.namedWindow('LowerHSV')
+    cv2.createTrackbar('UH', 'UpperHSV', 0, 179, nothing)
+    cv2.createTrackbar('US', 'UpperHSV', 0, 255, nothing)
+    cv2.createTrackbar('UV', 'UpperHSV', 0, 255, nothing)
+    cv2.createTrackbar('LH', 'LowerHSV', 0, 179, nothing)
+    cv2.createTrackbar('LS', 'LowerHSV', 0, 255, nothing)
+    cv2.createTrackbar('LV', 'LowerHSV', 0, 255, nothing)
+    # init value
+    cv2.setTrackbarPos('UH', 'UpperHSV', 35)
+    cv2.setTrackbarPos('US', 'UpperHSV', 120)
+    cv2.setTrackbarPos('UV', 'UpperHSV', 255)
+    cv2.setTrackbarPos('LH', 'LowerHSV', 20)
+    cv2.setTrackbarPos('LS', 'LowerHSV', 50)
+    cv2.setTrackbarPos('LV', 'LowerHSV', 200) 
+    return;
+    
 def binary_cvt(image, lower, upper):
     hsv_image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     mask = cv2.inRange(hsv_image, lower, upper)
     return mask
-	
+    
 def warp_image(img):
     image_size = (img.shape[1], img.shape[0])
     x = img.shape[1]
