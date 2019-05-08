@@ -2,6 +2,13 @@ import cv2
 import numpy as np
 import math
 
+UH = 0
+US = 0
+UV = 0
+LH = 0
+LS = 0
+LV = 0
+
 xRatio = 0.25
 def nothing(x):
     pass
@@ -17,11 +24,11 @@ def creatHSV():
     cv2.createTrackbar('LS', 'LowerHSV', 0, 255, nothing)
     cv2.createTrackbar('LV', 'LowerHSV', 0, 255, nothing)
     # init value
-    cv2.setTrackbarPos('UH', 'UpperHSV', 35)
-    cv2.setTrackbarPos('US', 'UpperHSV', 120)
+    cv2.setTrackbarPos('UH', 'UpperHSV', 50)
+    cv2.setTrackbarPos('US', 'UpperHSV', 150)
     cv2.setTrackbarPos('UV', 'UpperHSV', 255)
-    cv2.setTrackbarPos('LH', 'LowerHSV', 20)
-    cv2.setTrackbarPos('LS', 'LowerHSV', 50)
+    cv2.setTrackbarPos('LH', 'LowerHSV', 10)
+    cv2.setTrackbarPos('LS', 'LowerHSV', 10)
     cv2.setTrackbarPos('LV', 'LowerHSV', 200) 
     return;
     
