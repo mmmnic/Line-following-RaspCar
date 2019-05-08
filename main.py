@@ -38,9 +38,9 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     
     # convert to binary
     binary_image =  binary_cvt(blur, np.array([LH,LS,LV]),np.array([UH,US,UV]))
-    #bird_view = warp_image(binary_image)
+    bird_view = warp_image(binary_image)
     
-    cv2.imshow("image for processing", binary_image)
+    cv2.imshow("image for processing", bird_view)
     
     left_fit,right_fit = track_lanes_initialize(binary_image)
     left_fit,right_fit = check_missing_line(left_fit,right_fit)

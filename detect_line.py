@@ -24,11 +24,11 @@ def creatHSV():
     cv2.createTrackbar('LS', 'LowerHSV', 0, 255, nothing)
     cv2.createTrackbar('LV', 'LowerHSV', 0, 255, nothing)
     # init value
-    cv2.setTrackbarPos('UH', 'UpperHSV', 50)
-    cv2.setTrackbarPos('US', 'UpperHSV', 150)
+    cv2.setTrackbarPos('UH', 'UpperHSV', 60)
+    cv2.setTrackbarPos('US', 'UpperHSV', 160)
     cv2.setTrackbarPos('UV', 'UpperHSV', 255)
-    cv2.setTrackbarPos('LH', 'LowerHSV', 10)
-    cv2.setTrackbarPos('LS', 'LowerHSV', 10)
+    cv2.setTrackbarPos('LH', 'LowerHSV', 0)
+    cv2.setTrackbarPos('LS', 'LowerHSV', 0)
     cv2.setTrackbarPos('LV', 'LowerHSV', 200) 
     return;
     
@@ -59,8 +59,8 @@ def warp_image(img):
     ])
     
     perspective_transform = cv2.getPerspectiveTransform(source_points, destination_points)
-    #inverse_perspective_transform = cv2.getPerspectiveTransform( destination_points, source_points)
-    warped_img = cv2.warpPerspective(img, perspective_transform, image_size, flags=cv2.INTER_LINEAR)
+    inverse_perspective_transform = cv2.getPerspectiveTransform( destination_points, source_points)
+    warped_img = cv2.warpPerspective(img, inverse_perspective_transform, image_size, flags=cv2.INTER_LINEAR)
 
     return warped_img
 def track_lanes_initialize(binary_warped):   
@@ -91,7 +91,6 @@ def track_lanes_initialize(binary_warped):
         win_xright_low = rightx_current - margin
         win_xright_high = rightx_current + margin
         # Draw the windows on the visualization image
-        # cv2.imshow('out_img',out_img)
         # Identify the nonzero pixels in x and y within the window
         good_left_inds = ((nonzeroy >= win_y_low) & (nonzeroy < win_y_high) & (nonzerox >= win_xleft_low) & (nonzerox < win_xleft_high)).nonzero()[0]
         good_right_inds = ((nonzeroy >= win_y_low) & (nonzeroy < win_y_high) & (nonzerox >= win_xright_low) & (nonzerox < win_xright_high)).nonzero()[0]
