@@ -1,0 +1,18 @@
+lane.get_Lines(): ham nay dung de lay 2 lines 2 ben, line trai va phai.
+sau khi chay ham nay anh se co: lane.left_line,lane.right_line. Day la 2 phuong trinh 2 lines da detect dc
+
+lane.get_center_line_unwarped(): Ham nay dung de tinh toan center line.
+tu center line moi co point center de tinh angle
+
+lane.draw_lane(): ham nay chi dung de ve lane, dung cho vien DEBUG, khi chay ko can thiet
+(co the bo di)
+
+
+Luc ma anh detect line a, thi can de no hien ra binary image bang bo loc HSV
+
+
+Xong khi anh chon dc threshold roi thi vo day xet mac dinh cho no
+
+OKIE chua
+
+de google OOP python :v
