@@ -11,14 +11,22 @@ LS = 50
 LV = 200
 
 camera = PiCamera()
+<<<<<<< HEAD
 camera.framerate = 20
 camera.resolution = (688, 400)
 rawCapture = PiRGBArray(camera)
+=======
+camera.framerate = 30
+camera.resolution = (640, 480)
+>>>>>>> 8a4686d8418695bc61820e58ad03986d3056dbb3
 sleep(2)
+image = np.empty((480*640*3,), dtype=np.uint8)
+camera.capture(image, 'bgr')
 
 
 creatHSV()
-for frame in camera.capture_continuous(rawCapture, format = "bgr", use_video_port = True):
+while True:
+	camera.capture(image, 'bgr')
     image = frame.array
     UH = cv2.getTrackbarPos('UH','UpperHSV')
     US = cv2.getTrackbarPos('US','UpperHSV')
@@ -38,8 +46,8 @@ turnLED1(1)
 print("exit adjust HSV range")
 cv2.destroyAllWindows()
 
-for frame in camera.capture_continuous(rawCapture, format = "bgr", use_video_port = True):
-    image = frame.array
+while True:
+	camera.capture(image, 'bgr')
     #processing image
     blur = cv2.bilateralFilter(image,9,75,75)
     #cv2.imshow("blur", blur)
@@ -57,7 +65,6 @@ for frame in camera.capture_continuous(rawCapture, format = "bgr", use_video_por
     print(angle)
     turnServo(angle)
     setSpeed(20,20)
-    rawCapture.truncate(0)
     # if "ESC" is pressed then exit
     key = cv2.waitKey(10) & 0xff
     if key == 27:
