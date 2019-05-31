@@ -2,6 +2,7 @@ from SetupCar import *
 from detect_line import *
 from picamera import PiCamera
 from picamera.array import PiRGBArray
+import time
 
 def nothing(x):
         pass  
@@ -19,7 +20,7 @@ def create_Trackbar():
 
 
 camera = PiCamera()
-camera.framerate = 20
+camera.framerate = 30
 camera.resolution = (640, 480)
 sleep(2)
 rawCapture = PiRGBArray(camera, size=(640, 480))
@@ -35,19 +36,21 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+    tps = time.time()
     lane = Lane(frame.array)
     lane.get_Lines()
     #print(lane.left_line,lane.right_line)
     lane.get_center_line_unwarped()
     angle = int(errorAngle(lane.center_line))
     setSpeed(20, 20)
-    turnServo(angle*0.8)
-    print('angle: ', angle)
+    turnServo(angle*1)
+    #print('angle: ', angle)
     #print(lane.left_line,lane.right_line)
     lane.draw_lane()
     rawCapture.truncate(0)
     if (cv2.waitKey(1) & 0xff == 27):
         break
+    print("tps la: ",time.time()- tps)
 
 turnLED1(0)
 turnServo(0)

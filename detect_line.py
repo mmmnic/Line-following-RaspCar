@@ -280,7 +280,8 @@ class Lane:
         self.__cvt_binary()
         #################################################
         self.__warp()
-        self.__track_lanes_initialize(self.__warped_image)
+        self.__track_lanes_initialize(self.binary_image)
+        #self.__track_lanes_initialize(self.__warped_image)
         self.__checking_missing_line()
 
 ############# Processing_center ###########################
