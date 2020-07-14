@@ -1,4 +1,10 @@
 import RPi.GPIO as GPIO
+import cv2
+import numpy as np
+import math
+import time
+from picamera.array import PiRGBArray
+from picamera import PiCamera
 from time import sleep
 
 GPIO.setmode(GPIO.BCM)
@@ -113,3 +119,14 @@ def isBUT2():
     if (GPIO.input(BUT2)):
         return 0
     return 1
+
+
+"""
+cv2.namedWindow("Trackbars")
+cv2.createTrackbar("L - H", "Trackbars", 0, 179, nothing)
+cv2.createTrackbar("L - S", "Trackbars", 0, 255, nothing)
+cv2.createTrackbar("L - V", "Trackbars", 0, 255, nothing)
+cv2.createTrackbar("U - H", "Trackbars", 179, 179, nothing)
+cv2.createTrackbar("U - S", "Trackbars", 255, 255, nothing)
+cv2.createTrackbar("U - V", "Trackbars", 255, 255, nothing
+"""
